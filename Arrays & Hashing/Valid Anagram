@@ -1,0 +1,28 @@
+Valid Anagram
+-----------------------
+Time Complexity - O(n)
+Space Complexity - O(n)
+-----------------------
+class Solution {
+    public boolean isAnagram(String s, String t) {
+// If strings aren't of equal length then not an anagram
+        if(s.length() != t.length()){
+            return false;
+        }
+        HashMap<Character,Integer> map = new HashMap<>();
+// Enter key value pairs of characters of first string in HashaMap
+        for(char ch : s.toCharArray()){
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+// If map doesn't contain charcter in second string or if contains a single character more than the first string then not an anagram
+        for(char ch: t.toCharArray()){
+            if(!map.containsKey(ch) || map.get(ch) <= 0){
+                return false;
+            }
+            map.put(ch,map.get(ch)-1);
+            
+            
+        }
+        return true;
+    }
+}
