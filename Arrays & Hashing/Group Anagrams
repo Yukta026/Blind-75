@@ -1,0 +1,37 @@
+Group Anagrams
+-----------------------------------------
+Time Complexity - O(m*n)
+Space Complexity - O(m*n)
+where m = length of strings array
+and n = length of longest word in array
+-----------------------------------------
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+       List<List<String>> ans = new ArrayList<>();
+       if(strs == null || strs.length == 0){
+        return ans;
+       } 
+       HashMap<String,List<String>> map = new HashMap<>();
+// Generating key signature key as per the count of characters within array
+       for(String word : strs){
+        int[] count = new int[26];
+        for(char ch : word.toCharArray()){
+            count[ch - 'a']++;
+        }
+// Converting the key into string with # delimiter added 
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<26;i++){
+            sb.append(count[i]).append('#');
+        }
+        String key = sb.toString();
+// Inserting the key within map and inserting words adhering to it's signature key
+        if(!map.containsKey(key)){
+            map.put(key,new ArrayList<>());
+        }
+        map.get(key).add(word);
+       }
+       ans.addAll(map.values());
+       return ans;
+    }
+}
