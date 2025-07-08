@@ -1,0 +1,35 @@
+Longest Consecutive Sequence
+----------------------------
+Time Complexity - O(n)
+Space Complexity - O(n)
+----------------------------
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> hS = new HashSet<>();
+// If array length is zero return 0
+        if(nums.length == 0){
+            return 0;
+        }
+// Storing elements in hashmap
+        for(int num : nums){
+            hS.add(num);
+        }
+        int maxLength = 1;
+        for(int num : hS){
+            // If element before not present so look for next subsequent number in array
+            if(!hS.contains(num-1)){
+                int count = 1;
+                int current = num;
+           // Increment the count until next consecutive element is present
+                while(hS.contains(current+1)){
+                    count++;
+                    current++;
+                    maxLength = Math.max(maxLength,count);
+                    
+                }
+            }
+        }
+// Return maximum length of LCS
+        return maxLength;
+    }
+}
