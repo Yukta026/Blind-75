@@ -1,0 +1,17 @@
+Valid Palindrome
+-------------------------
+Time Complexity - O(n)
+Space Complexity - O(n)
+-------------------------
+class Solution {
+    public boolean isPalindrome(String s) {
+  // Converting all string characters to lower case
+       s = s.toLowerCase();
+  // Removing all non-alphanumeric characters
+       s= s.replaceAll("[^a-z0-9]","");
+    
+   // Using string builder to use reverse function and check if string is palindrome    
+       return new StringBuilder(s).reverse().toString().equals(s);
+ 
+    }
+}
