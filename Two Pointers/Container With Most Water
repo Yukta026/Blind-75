@@ -1,0 +1,22 @@
+Container With Most Water
+-------------------------
+Time Complexity - O(n^2)
+Space Complexity - O(1)
+-------------------------
+class Solution {
+    public int maxArea(int[] heights) {
+        int maxHt = 0;
+// Implementing two pinter approach using i and j
+        for(int i=0;i<heights.length-1;i++){
+            int j = i+1;
+// Traversing j index till last element of array to get maximum height
+            while(j < heights.length){
+// Area is calulated as difference in the index of i & j as breadth and min element from i & j as height
+                int area = Math.abs(j-i)* Math.min(heights[i],heights[j]);
+                maxHt = Math.max(area,maxHt);
+                j++;
+            }
+        }
+        return maxHt;
+    }
+}
