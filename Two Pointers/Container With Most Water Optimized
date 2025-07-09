@@ -1,0 +1,25 @@
+Container With Most Water
+-------------------------
+Time Complexity - O(n)
+Space Complexity - O(1)
+-------------------------
+class Solution {
+    public int maxArea(int[] heights) {
+        int maxHt = 0;
+        int left = 0;
+        int right = heights.length -1;
+        while(left < right){
+                int area = Math.abs(right-left)* Math.min(heights[left],heights[right]);
+                maxHt = Math.max(area,maxHt);
+// Moving the shorter pointer as height is obtained by minimum of left and right so greater the minimum height higher the area
+                if(heights[left] < heights[right]){
+                    left++;
+                }
+                else{
+                    right--;
+                }
+            }
+
+        return maxHt;
+    }
+}
