@@ -1,0 +1,28 @@
+Longest Substring Without Repeating Characters
+----------------------------------------------
+Time Complexity - O(n)
+Space Complexity - O(1)
+assuming fixed character set size
+----------------------------------------------
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int ans = 0;
+        if(s.length() == 1 || s == null){
+            return 1;
+        }
+// Creating a map to store character as well as index  
+        int left = 0;
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(int right =0;right<s.length();right++){
+            char c = s.charAt(right);
+// If duplicate character encountered update the left pointer next to the duplicate element
+            if(map.containsKey(c) && map.get(c) >= left){
+                left = map.get(c)+1;
+
+            }
+            map.put(c,right);
+            ans = Math.max(ans,right-left+1);
+        }
+        return ans;
+    }
+}
