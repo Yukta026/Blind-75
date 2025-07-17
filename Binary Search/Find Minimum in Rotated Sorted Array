@@ -1,0 +1,27 @@
+Find Minimum in Rotated Sorted Array
+------------------------------------
+Time Complexity - O(log N)
+Space Complexity - O(1)
+------------------------------------
+
+class Solution {
+    public int findMin(int[] nums) {
+       
+       int left = 0;
+       int right = nums.length-1;
+       int mid = -1;
+       while(left < right){
+// Optimized way to calculate mid 
+            mid = left + (right-left)/2;
+// If mid element is greater than right element, smallest element is present after mid element as array is rotated sorted
+            if(nums[right] < nums[mid]){
+                left = mid+1;
+            }
+            else{
+                right = mid;
+            }
+       }
+// Returning left element
+       return nums[left];
+    }
+}
