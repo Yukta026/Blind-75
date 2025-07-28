@@ -1,0 +1,43 @@
+Invert Binary Tree using iteration
+----------------------------------
+Time Complexity - O(n)
+Space Complexity- O(n)
+----------------------------------
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null){
+            return null;
+        }
+      // Implement BFS using queue
+       Queue<TreeNode> q = new LinkedList<>();
+       q.offer(root);
+       while(!q.isEmpty()){
+        TreeNode curr = q.poll();
+
+      // Swap child nodes
+        TreeNode tmp = curr.left;
+        curr.left = curr.right;
+        curr.right = tmp;
+        if(curr.left != null){q.offer(curr.left);}
+        if(curr.right != null){q.offer(curr.right);}
+       }
+       
+       return root; 
+    }
+}
