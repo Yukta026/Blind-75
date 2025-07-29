@@ -1,0 +1,36 @@
+Subtree of Another Tree using serialization and substring matching
+----------------------
+Time Complexity - O(m+n)
+Space Complexity - O(m+n)
+----------------------
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution {  
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        String rootStr = serialize(root);
+        String subRootStr = serialize(subRoot);
+// Check if root string contains subRoot
+        return rootStr.contains(subRootStr);
+    }
+    private String serialize(TreeNode node){
+// Serialize null node by #
+        if(node == null){
+            return "#";
+        }
+        return ","+node.val+serialize(node.left)+serialize(node.right);
+    }
+}
