@@ -1,0 +1,40 @@
+Valid Binary Search Tree
+-------------------------
+Time Complexity - O(n)
+Space Complexity - O(h)
+-------------------------
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        
+        return isHelper(root, null,null);
+    }
+    private boolean isHelper(TreeNode root,Integer lower,Integer upper){
+        if(root == null){
+            return true;
+        }
+        Integer val = root.val;
+// Comparing child node values with root node
+        if(lower != null && lower >= val){return false;}
+        if(upper != null && upper <= val){return false;}
+// If any condition fails, returns false
+        if(!isHelper(root.left,lower,val)){return false;}
+        if(!isHelper(root.right,val,upper)){return false;}
+        return true;
+    }
+}
