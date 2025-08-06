@@ -1,0 +1,41 @@
+Kth Smallest Integer in BST
+--------------------------------
+Time Complexity - O(n + k log n)
+Space Complexity - O(n)
+--------------------------------
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        PriorityQueue<TreeNode> minHeap = new PriorityQueue<>((a,b)-> a.val - b.val);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+// Exploring all the nodes of BST
+        while(!q.isEmpty()){
+            TreeNode node = q.poll();
+            minHeap.offer(node);
+            if(node.left != null){q.offer(node.left);}
+            if(node.right != null){q.offer(node.right);}
+        }
+// Finding the kth smallest element using priority queue
+        TreeNode kthNode = null;
+        for(int i=0;i<k;i++){
+            kthNode = minHeap.poll();
+        }
+        return kthNode.val;
+    }
+}
