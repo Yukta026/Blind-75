@@ -1,0 +1,35 @@
+Find Median From Data Stream
+----------------------------
+Time Complexity - O(logN)
+Space Complexity - O(N)
+----------------------------
+class MedianFinder {
+    private PriorityQueue<Integer> maxHeap;
+    private PriorityQueue<Integer> minHeap;
+    public MedianFinder() {
+        maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        minHeap = new PriorityQueue<>();
+
+    }
+    
+    public void addNum(int num) {
+// Inserting number to maxHeap
+        maxHeap.offer(num);
+// Balance size of maxHeap and minHeap
+        minHeap.offer(maxHeap.poll());
+// make sure maxHeap size is equal to one element greater
+        if(maxHeap.size() < minHeap.size()){
+            maxHeap.offer(minHeap.poll());
+        }
+    }
+    
+    public double findMedian() {
+// If heap sizes same then median is mean of top elements of both heaps
+        if(maxHeap.size() == minHeap.size()){
+            return (minHeap.peek() + maxHeap.peek())/2.0;
+        }
+        else{
+            return maxHeap.peek();
+        }
+    }
+}
