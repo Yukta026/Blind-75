@@ -1,0 +1,33 @@
+Combination Sum
+----------------------------------------
+Time Complexity - O(2^(target/min(nums))
+Space Complexity - O(target/min(nums))
+----------------------------------------
+class Solution {
+    public List<List<Integer>> combinationSum(int[] nums, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> current = new ArrayList<>();
+        if(nums.length == 0){
+            return ans;
+        }
+        SumHelper(nums,target,ans,0,0,current);
+        return ans;
+    }
+    public void SumHelper(int[] nums,int target,List<List<Integer>> ans, int start,int sum,List<Integer> current){
+// If array sum matches target add to ans list
+        if(sum == target){
+                ans.add(new ArrayList<>(current));
+                return;
+            }
+// If sum exceeds target return which will backtrack the process and perform cleanup 
+         if(sum > target){
+                return;
+            }
+        for(int i = start;i<nums.length;i++){
+            
+            current.add(nums[i]); // choose
+            SumHelper(nums,target,ans,i,nums[i]+sum,current);
+            current.remove(current.size()-1); // backtrack
+        }
+    }
+}
