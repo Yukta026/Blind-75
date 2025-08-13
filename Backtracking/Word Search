@@ -1,0 +1,39 @@
+Word Search
+-----------------------------------
+Time Complexity - O(3^(L) * m * n)
+Space Complexity - O(L)
+-----------------------------------
+class Solution {
+    public boolean exist(char[][] board, String word) {
+// Convert string to character array
+        char[] ch = word.toCharArray();
+        int rows = board.length;
+        int cols = board[0].length;
+        for(int r=0;r<rows;r++){
+            for(int c=0;c<cols;c++){
+                if(dfs(board,ch,r,c,0)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean dfs(char[][] board,char[] ch,int r,int c,int index){
+// Entire char array parsed thus word present in board
+        if(index == ch.length){return true;}
+// Boundary check conditions
+        if(r < 0 || r >= board.length || c < 0 || c >= board[0].length){return false;}
+        if(board[r][c] != ch[index]){return false;}
+        char temp = board[r][c];
+// mark visited character as # temporarily
+        board[r][c] = '#';
+        boolean found = dfs(board,ch,r+1,c,index+1)
+        || dfs(board,ch,r-1,c,index+1)
+        || dfs(board,ch,r,c+1,index+1)
+        || dfs(board,ch,r,c-1,index+1);
+
+        board[r][c] = temp;
+        return found;
+
+    }
+}
