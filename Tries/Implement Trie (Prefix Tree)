@@ -1,0 +1,59 @@
+Implement Trie (Prefix Tree)
+-------------------------------------------------------
+Time Complexity - O(n)
+Space Complexity - O(t)
+n is the length of the given string 
+and t is the total number of nodes created in the Trie
+-------------------------------------------------------
+class TrieNode{
+    TrieNode[] children;
+    boolean isEndOfWord;
+    public TrieNode() {
+        children = new TrieNode[26];
+        isEndOfWord = false;
+    }
+}
+class PrefixTree {
+    private TrieNode root;
+    public PrefixTree() {
+        root = new TrieNode();
+    }
+
+    public void insert(String word) {
+        TrieNode node = root;
+        for(char ch : word.toCharArray()){
+// Convert character to numeric form of index
+            int ind = ch - 'a';
+            if(node.children[ind] == null){
+                node.children[ind] = new TrieNode();
+            }
+            node = node.children[ind];
+        }
+        node.isEndOfWord = true;
+    }
+
+    public boolean search(String word) {
+        TrieNode node = root;
+        for(char ch : word.toCharArray()){
+            int ind = ch - 'a';
+// If no children present of current node then node word doesn't exist
+            if(node.children[ind] == null){
+                return false;
+            }
+            node = node.children[ind];
+        }
+        return node.isEndOfWord;
+    }
+
+    public boolean startsWith(String prefix) {
+        TrieNode node = root;
+        for(char ch : prefix.toCharArray()){
+            int ind = ch - 'a';
+            if(node.children[ind] == null){
+                return false;
+            }
+            node = node.children[ind];
+        }
+        return true;
+    }
+}
