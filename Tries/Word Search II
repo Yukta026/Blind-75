@@ -1,0 +1,77 @@
+Word Search II
+----------------------------
+Time Complexity - 
+Worst case - O(k + M*N*4^L)
+Avg case - O(k+ M*N*L)
+
+Space Complexity - O(k+L)
+k - Trie Length
+----------------------------
+class TrieNode {
+    TrieNode[] children;
+    boolean isEndOfWord;
+    public TrieNode() {
+        children = new TrieNode[26];
+        isEndOfWord = false; 
+    }
+}
+class Solution {
+    private TrieNode root;
+    public Solution() {
+        root = new TrieNode();
+    } 
+    public List<String> findWords(char[][] board, String[] words) {
+     // Storing words array in trie   
+        for(String str : words){
+            TrieNode node = root;
+            for(char ch: str.toCharArray()){
+                int ind = ch - 'a';
+                if(node.children[ind] == null){
+                    node.children[ind] = new TrieNode();
+                }
+                node = node.children[ind];
+            }
+            node.isEndOfWord = true;
+        }
+        
+        List<String> ans = new ArrayList<>();
+        int m = board.length;
+        int n = board[0].length;
+        for(int i =0;i<m;i++){
+            for(int j=0;j<n;j++){
+                dfs(i,j,board,"",ans,root);
+            }
+        }
+        
+        return ans;
+    }
+    public void dfs(int i,int j,char[][] board,String str,List<String> ans, TrieNode root){
+// For boundary cases
+        if( i < 0 || j < 0 || i >= board.length || j >= board[0].length){
+            return;
+        }
+        if(board[i][j] == '#'){
+            return;
+        }
+        TrieNode node = root;
+        int ind = board[i][j] - 'a';
+        if(node.children[ind] == null){
+            return;
+        }
+        else{
+            node = node.children[ind];
+            String newStr = str + board[i][j];
+            if(node.isEndOfWord){
+                ans.add(newStr);
+                node.isEndOfWord = false;
+            }
+            char ch = board[i][j];
+            board[i][j] = '#';
+            dfs(i+1,j,board,newStr,ans,node);
+            dfs(i-1,j,board,newStr,ans,node);
+            dfs(i,j+1,board,newStr,ans,node);
+            dfs(i,j-1,board,newStr,ans,node);
+            board[i][j] = ch;
+        }
+    }
+}
