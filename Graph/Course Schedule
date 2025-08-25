@@ -1,0 +1,60 @@
+Course Schedule
+------------------------
+Time Complexity - O(V+E)
+Space Complexity - O(V)
+------------------------
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<Integer>[] adj = helper(numCourses,prerequisites);
+        // Count incoming edges for each node
+       int[] inDegree = new int[numCourses];
+    
+        for(int i=0;i<numCourses;i++){
+            for(int neighbour : adj[i]){
+                inDegree[neighbour]++;
+            }
+        }
+
+        
+        // If no incoming edges present, store the node in queue
+        
+       Queue<Integer> q = new LinkedList<>();
+       for(int i=0;i<numCourses;i++){
+        if(inDegree[i] == 0){
+            q.offer(i);
+        }
+       }
+        int[] result = new int[numCourses];
+        int index = 0;
+        while(!q.isEmpty()){
+            int node = q.poll();
+            result[index++] = node;
+       
+// Check whether any neighbour node has 0 inDegree
+            for(int neighbour : adj[node]){
+                inDegree[neighbour]--;
+                if(inDegree[neighbour] == 0){
+                    q.offer(neighbour);
+                }
+            }
+        }
+        if(index != numCourses){
+            return false;
+        }
+        return true;
+
+    }
+    public List<Integer>[] helper(int numCourses,int[][] prerequisites){
+        // Create adjacent list 
+       List<Integer>[] adj = new ArrayList[numCourses];
+
+       for(int i=0;i<numCourses;i++){
+        adj[i] = new ArrayList<>();
+       }
+
+       for(int[] prerequisite : prerequisites){
+        adj[prerequisite[0]].add(prerequisite[1]);
+       }
+       return adj;
+    }
+}
