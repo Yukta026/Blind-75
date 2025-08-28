@@ -1,0 +1,29 @@
+House Robber 2
+------------------------
+Time Complexity - O(N)
+Space Complexity - O(1)
+------------------------
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if(n == 1){ return nums[0];}
+        if(n==2){return Math.max(nums[0],nums[1]);}
+// Including first house and excluding last house
+        int firstCase = helper(nums,0,n-2);
+// Including last house and excluding first house
+        int secondCase = helper(nums,1,n-1);
+        return Math.max(firstCase,secondCase);
+    }
+    public int helper(int[] nums,int start,int end){
+        int dp0 = nums[start];
+        int dp1 = Math.max(dp0,nums[start+1]);
+// Recurrence relation - dp[i] = Math.max(dp[i-1], nums[i]+dp[i-2])
+       for(int i= start+2;i<=end;i++){
+            int dpn = Math.max(dp1, nums[i]+dp0);
+            dp0 = dp1;
+            dp1 = dpn;
+           
+        }
+        return dp1;
+    }
+}
