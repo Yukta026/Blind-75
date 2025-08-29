@@ -1,0 +1,32 @@
+Decode Ways
+------------------------
+Time Complexity - O(n)
+Space Complexity - O(1)
+------------------------
+class Solution {
+    public int numDecodings(String s) {
+       int n = s.length();
+       if(s.charAt(0) == '0' || n == 0){return 0;}
+       int p1 = 1;
+       int p0 = 0;
+
+       for(int i=1;i<=n;i++){
+        // check for single digit
+        int curr = 0;
+        if(s.charAt(i-1) != '0'){
+            curr += p1;
+        }
+
+        // check for two digit
+        if(i > 1){
+            int twoDigit = (s.charAt(i-2)-'0')*10 + (s.charAt(i-1)-'0');
+            if(twoDigit >= 10 && twoDigit <= 26){
+                curr += p0;
+            }
+        }
+        p0 = p1;
+        p1 = curr;
+       }
+       return p1;
+    }
+}
