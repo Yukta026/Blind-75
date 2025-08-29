@@ -1,0 +1,31 @@
+Palindromic Substrings
+------------------------
+Time Complexity - O(n^2)
+Space Complexity - O(1)
+------------------------
+class Solution {
+    public int countSubstrings(String s) {
+        if(s == null || s.length() == 0){return 0;}
+        int n = s.length();
+        int count = 0;
+        for(int i=0;i<n;i++){
+            // check for odd palindrome
+            int left = i;
+            int right = i+1;
+            while(left >= 0 && right < n && s.charAt(left) == s.charAt(right)){
+                count++;
+                left--;
+                right++;
+            }
+            // check for even palindrome
+            left = i;
+            right = i;
+            while(left >= 0 && right < n && s.charAt(left) == s.charAt(right)){
+                count++;
+                left--;
+                right++;
+            }
+        }
+        return count;
+    }
+}
