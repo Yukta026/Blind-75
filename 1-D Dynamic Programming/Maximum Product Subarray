@@ -1,0 +1,34 @@
+Maximum Product Subarray
+------------------------
+Time Complexity - O(n)
+Space Complexity - O(1)
+------------------------
+class Solution {
+    public int maxProduct(int[] nums) {
+        int maxProd = Integer.MIN_VALUE;
+        int n = nums.length;
+        int leftToRight = 1;
+        int rightToLeft = 1;
+
+        for(int i=0;i<n;i++){
+// If leftToRight or rightToLeft equals 0, so odd number of negative elements exist
+            if(leftToRight == 0){
+// Remove last negative element from start traversal
+                leftToRight = 1;
+            }
+            if(rightToLeft == 0){
+// Remove first negative element from rightToLeft traversal
+                rightToLeft = 1;
+            }
+
+            leftToRight *= nums[i];
+
+            int j = n-i-1;
+            rightToLeft *= nums[j];
+
+            maxProd = Math.max(maxProd,Math.max(leftToRight,rightToLeft));
+        }
+        return maxProd;
+
+    }
+}
