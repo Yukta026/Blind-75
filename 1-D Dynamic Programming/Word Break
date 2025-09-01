@@ -1,0 +1,28 @@
+Word Break
+----------------------------------
+Time Complexity - O(n*m*k)
+Space Complexity - O(n)
+where n = s.length
+m = size of each word in wordDict
+k = avg word size
+----------------------------------
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        int n = s.length();
+        boolean[] dp = new boolean[n+1];
+        dp[0] = true; // empty string is valid
+
+        for(int i =1;i<=n;i++){
+            for(String word : wordDict){
+                int len = word.length();
+                if(i >= len && dp[i-len]){
+                    if(s.substring(i-len,i).equals(word)){
+                        dp[i] = true;
+                        break; // no more searching reqd
+                    }
+                }
+            }
+        }
+        return dp[n];
+    }
+}
