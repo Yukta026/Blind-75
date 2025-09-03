@@ -1,0 +1,33 @@
+Unique Paths using memoization
+------------------------------
+Time Complexity - O(m*n)
+Space Complexity - O(m*n)
+------------------------------
+class Solution {
+    public int uniquePaths(int m, int n) {
+        List<List<Integer>> ans = new ArrayList<>();
+
+        for(int i=0;i<= m;i++){
+            List<Integer> row = new ArrayList<>();
+            for(int j=0;j<=n;j++){
+                row.add(0);
+            }
+            ans.add(row);
+        }
+
+        int res = countPaths(m,n,ans);
+        return res;
+    }
+    public int countPaths(int m,int n,List<List<Integer>> ans){
+// If edges found, number of ways equals to 1
+        if(m == 1 || n == 1){
+            ans.get(m).set(n,1);
+        }
+// If cell not previously computed then its sum of number of paths at left + top
+        if(ans.get(m).get(n) == 0){
+            int paths = countPaths(m-1,n,ans) + countPaths(m,n-1,ans);
+            ans.get(m).set(n,paths);
+        }
+        return ans.get(m).get(n);
+    }
+}
