@@ -1,0 +1,33 @@
+Longest Common Subsequence using Bottom-Up approach (tabulation)
+----------------------------------------------------------------
+Time Complexity - O(m*n)
+Space Complexity - O(m*n)
+----------------------------------------------------------------
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        int len1 = text1.length();
+        int len2 = text2.length();
+
+        int[][] dp = new int[len1+1][len2+1];
+
+        for(int i=1;i<=len1;i++){
+            for(int j=1;j<=len2;j++){
+                char a = text1.charAt(i-1);
+                char b = text2.charAt(j-1);
+// If characters match, increment the length of LCS counter
+                if(a == b){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }
+// Otherwise current cell's value is equal to maximum of it's top and left elements 
+                else{
+                    dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+        }
+
+        return dp[len1][len2];
+        
+    }
+    
+    
+}
