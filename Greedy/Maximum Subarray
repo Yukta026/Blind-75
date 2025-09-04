@@ -1,0 +1,19 @@
+Maximum Subarray
+-----------------------
+Time Complexity - O(n)
+Space Complexity - O(1)
+-----------------------
+class Solution {
+    public int maxSubArray(int[] nums) {
+// Initialize variables with first array element, to handle negative maximum subarray 
+        int maxEnd = nums[0];
+        int res = nums[0];
+
+        for(int i=1;i<nums.length;i++){
+// If current sum is greater than current element, maxEnd is equal to sum 
+            maxEnd = Math.max(nums[i], maxEnd+nums[i]);
+            res = Math.max(res,maxEnd);
+        }
+        return res;
+    }
+}
