@@ -1,0 +1,48 @@
+Meeting Rooms II
+----------------------------
+Time Complexity - O(n logn)
+Space Complexity - O(n)
+----------------------------
+/**
+ * Definition of Interval:
+ * public class Interval {
+ *     public int start, end;
+ *     public Interval(int start, int end) {
+ *         this.start = start;
+ *         this.end = end;
+ *     }
+ * }
+ */
+
+class Solution {
+    public int minMeetingRooms(List<Interval> intervals) {
+
+        int n = intervals.size();
+        int[] starts = new int[n];
+        int[] ends = new int[n];
+
+        for(int i=0;i<n;i++){
+            starts[i] = intervals.get(i).start;
+            ends[i] = intervals.get(i).end;
+        }
+// Sorting start and end arrays
+        Arrays.sort(starts);
+        Arrays.sort(ends);
+        int i=0,j=0;
+        int count =0;
+        int result = 0;
+        while(i < n){
+// If start time of next meeting is lesser than end time of current meeting, another room reqd
+            if(starts[i] < ends[j]){
+                count++;
+                result = Math.max(result,count);
+                i++;
+            }
+            else{ // One meeting ended, free a room
+                count--;
+                j++;
+            }
+        }
+        return result;
+    }
+}
