@@ -1,0 +1,26 @@
+Non-overlapping Intervals
+-------------------------
+Time Complexity - O(n)
+Space Complexity - O(1)
+-------------------------
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+// Sort by end values
+        Arrays.sort(intervals,(a,b) -> Integer.compare(a[1], b[1]));
+
+        
+        int prevEnd = Integer.MIN_VALUE;
+        int remove = 0;
+        for(int[] interval : intervals){
+// If next element's start is lesser than prev's end, overlap found
+            if(prevEnd > interval[0]){
+                remove++;
+                
+            }
+            else{
+                prevEnd = interval[1];
+            }
+        }
+        return remove;
+    }
+}
