@@ -1,0 +1,33 @@
+Meeting Rooms
+-----------------------------
+Time Complexity - O(n logn)
+Space Complexity - O(1)
+-----------------------------
+/**
+ * Definition of Interval:
+ * public class Interval {
+ *     public int start, end;
+ *     public Interval(int start, int end) {
+ *         this.start = start;
+ *         this.end = end;
+ *     }
+ * }
+ */
+
+class Solution {
+    public boolean canAttendMeetings(List<Interval> intervals) {
+// Sorting intervals through start time
+        intervals.sort((a,b)-> Integer.compare(a.start,b.start));
+        int prevEnd = Integer.MIN_VALUE;
+        for(Interval interval: intervals){
+// If prev's end time is greater than next's start time, conflict exists
+            if(prevEnd > interval.start){
+                return false;
+            }
+            else{
+                prevEnd = interval.end;
+            }
+        }
+        return true;
+    }
+}
