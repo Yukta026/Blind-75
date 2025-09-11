@@ -1,0 +1,22 @@
+Counting Bits
+-----------------------
+Time Complexity - O(n)
+Space Complexity - O(n)
+-----------------------
+class Solution {
+    public int[] countBits(int n) {
+        int[] dp = new int[n+1];
+        dp[0] = 0;
+        int offset = 1;
+        for(int i=1;i<=n;i++){
+// If i == offset*2, so set the value of offset as offset*2
+            if(offset*2 == i){
+                offset = offset*2;
+            }
+            dp[i] = 1 + dp[i-offset];
+            
+        
+        }
+        return dp;
+    }
+}
