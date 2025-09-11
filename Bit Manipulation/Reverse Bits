@@ -1,0 +1,17 @@
+Reverse Bits
+------------------------
+Time Complexity - O(1)
+Space Complexity - O(1)
+------------------------
+class Solution {
+    public int reverseBits(int n) {
+        int res =0;
+        for(int i=0;i<=31;i++){
+            if(((n >> i) & 1) > 0){
+ // Here | is OR operation i.e. res = res | (1 << (31-i))
+                res |= 1 << (31-i);
+            } 
+        }
+        return res;
+    }
+}
